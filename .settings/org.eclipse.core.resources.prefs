@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/jsp/grupo/altera_form.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/grupo/index.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/grupo/novo_form.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/grupo/visualiza.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/index/index.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/linhaDePesquisa/index.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/linhaDePesquisa/index_estatico.jsp=UTF-8
+encoding/<project>=UTF-8
+separateDerivedEncodings=true

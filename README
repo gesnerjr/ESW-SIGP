@@ -1,0 +1,43 @@
+SIGP - Sistema de Informacão para Grupos de Pesquisa
+
+	SIGP é um projeto criado por alunos do IME-USP como parte disciplina MAC332. É um sistema de informações para grupos de pesquisa que facilita o gerenciamento de grupos, membros e publicações acadêmicas. O SIGP é software livre.
+
+	Este projeto é baseado nas tecnologias Java, Hibernate, VRaptor, Tomcat, e MySQL. Os desenvolvedores usam o Eclipse como ferramenta para desenvolvimento.
+
+	Uma versão do servidor funcionando pode ser acessado em
+
+    http://www.linux.ime.usp.br:8080/SIGP/
+
+
+DESENVOLVIMENTO
+
+	O código fonte do SIGP é disponibilizado no github. Para começar, baixe o projeto e importe-o no Eclipse. Você precisará de um servidor Tomcat e banco de dados MySQL para rodar o sistema.
+
+    https://github.com/rafamanzo/SIGP
+
+	O sistema Pivotal é utilizado para gerenciar o desenvolvimento, e pode ser acessado no endereço:
+
+    https://www.pivotaltracker.com/projects/354269
+
+
+DOCUMENTAÇÃO
+
+	A documentação do projeto está no diretório Doc no código fonte, e pode ser visualizada online pelo link:
+
+    https://github.com/rafamanzo/SIGP/tree/master/doc
+
+
+CONTATO
+    
+	Para entrar em contato com os responsáveis pelo projeto envie uma mensagem para mac0332gruposdepesquisa-@googlegroups.com.
+
+	Os autores do projeto são:
+
+Rafael Reggiani Manzo
+Geraldo Castro Zampoli
+Henrique Gemignani Passos Lima
+Jorge J G Leandro
+Samuel Placa
+Wilson Kazuo Mizutani
+Fernando Omar Aluani
+Evandro Fernandes Giovanini
