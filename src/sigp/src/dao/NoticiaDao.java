@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import sigp.src.component.Grupo;
 import sigp.src.component.Noticia;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.RequestScoped;
@@ -26,15 +25,15 @@ public class NoticiaDao {
 		t.commit();
 	}
 
-	public Noticia pegaNoticiaPorLogin(String login) {
-		@SuppressWarnings("unchecked")
-		List<Noticia> noticias = this.session.createCriteria(Noticia.class)
-				.add(Restrictions.eq("login", login)).list();
-		if (noticias.size() > 0)
-			return noticias.get(0);
-		return null;
-
-	}
+	// public Noticia pegaNoticiaPorLogin(String login) {
+	// @SuppressWarnings("unchecked")
+	// List<Noticia> noticias = this.session.createCriteria(Noticia.class)
+	// .add(Restrictions.eq("login", login)).list();
+	// if (noticias.size() > 0)
+	// return noticias.get(0);
+	// return null;
+	//
+	// }
 
 	public Noticia getNoticia(Long id) {
 		return (Noticia) session.get(Noticia.class, id);
@@ -58,18 +57,18 @@ public class NoticiaDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Noticia find(String noticia) {
+	public Noticia find(String titulo) {
 		List<Noticia> l = this.session.createCriteria(Noticia.class)
-				.add(Restrictions.like("noticia", noticia)).list();
+				.add(Restrictions.like("titulo", titulo)).list();
 		if (l.size() != 1)
 			return null;
 		return l.get(0);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Noticia> search(String noticia) {
+	public List<Noticia> search(String titulo) {
 		return this.session.createCriteria(Noticia.class)
-				.add(Restrictions.like("noticia", "%" + noticia + "%")).list();
+				.add(Restrictions.like("titulo", "%" + titulo + "%")).list();
 	}
 
 }

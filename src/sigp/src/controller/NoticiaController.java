@@ -24,7 +24,7 @@ public class NoticiaController implements IHeaderController {
 	}
 
 	public String getHeader() {
-		return this.HEADER;
+		return NoticiaController.HEADER;
 	}
 
 	@Path("/noticia/")

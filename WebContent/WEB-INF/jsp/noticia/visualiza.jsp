@@ -3,8 +3,7 @@
 <div id="side-contents" class="hidden"></div>
 
 <div id="contents">
-	<h2 class="top">${noticia.url}</h2>
-	<!-- Aqui ficaria algo como o nome da noticia, o que por enquanto não tem -->
+	<h2 class="top">${noticia.titulo}</h2>
 
 
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -13,9 +12,15 @@
 	<p>
 		<b>Notícia:</b>
 		<c:choose>
+			<c:when test="${noticia.titulo != null}">${noticia.titulo}</c:when>
+			<c:otherwise> - </c:otherwise>
+		</c:choose>
+	</p>
+	<p>
+		<b>Notícia:</b>
+		<c:choose>
 			<c:when test="${noticia.noticia != null}">${noticia.noticia}</c:when>
 			<c:otherwise> - </c:otherwise>
-			<!-- não é necessário, mas não tenho certeza do que colocar por enquanto -->
 		</c:choose>
 	</p>
 	<p>
@@ -23,7 +28,6 @@
 		<c:choose>
 			<c:when test="${noticia.tipoNoticia != null}">${noticia.tipoNoticia}</c:when>
 			<c:otherwise> - </c:otherwise>
-			<!-- não é necessário, mas não tenho certeza do que colocar por enquanto -->
 		</c:choose>
 	</p>
 
@@ -32,10 +36,10 @@
 		<c:choose>
 			<c:when test="${noticia.url != null}">${noticia.url}</c:when>
 			<c:otherwise> - </c:otherwise>
-			<!-- não é necessário, mas não tenho certeza do que colocar por enquanto -->
 		</c:choose>
 	</p>
 
+	<!-- Imagem -->
 
 	<p>
 		<a href="/SIGP/noticia/alterar/${noticia.idNoticia}">Alterar</a> <a

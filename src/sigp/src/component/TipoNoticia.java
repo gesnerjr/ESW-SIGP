@@ -1,7 +1,7 @@
 package sigp.src.component;
 
 public enum TipoNoticia {
-	PADRAO("Padrao")/* , ADMINISTRADOR("Administrador") */;
+	NORMAL("Normal"),DESTAQUE("Destaque");
 	private String tipoNoticia;
 
 	private TipoNoticia(String tipoNoticia) {

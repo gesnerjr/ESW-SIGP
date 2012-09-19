@@ -1,5 +1,6 @@
 package sigp.src.component;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 import br.com.caelum.vraptor.Resource;
 
@@ -25,6 +24,9 @@ public class Noticia {
 
 	// private File avatar;
 
+	@NotNull(message = "Notícia precisa ter um título.")
+	private String titulo;
+
 	@NotNull(message = "Notícia precisa ter uma descrição.")
 	private String noticia;
 
@@ -35,10 +37,12 @@ public class Noticia {
 	private String url;
 
 	// @NotEmpty(message = "Notícia precisa ter uma imagem.")
-	// private Image imagem;
+	private String imagem;
 
-	@NotEmpty(message = "Usuário precisa ter login.")
-	private String login;
+	// Imagem será o caminho de referencia para a mesma...
+
+	// @NotEmpty(message = "Usuário precisa ter login.")
+	// private String login;
 
 	@Id
 	@GeneratedValue
@@ -51,13 +55,22 @@ public class Noticia {
 		this.idNoticia = idNoticia;
 	}
 
-	@Column(name = "NOTICIA_NOTICIA", nullable = false, length = 255)
+	@Column(name = "NOTICIA_NOTICIA", nullable = false, length = 1255)
 	public String getNoticia() {
 		return noticia;
 	}
 
 	public void setNoticia(String noticia) {
 		this.noticia = noticia;
+	}
+
+	@Column(name = "NOTICIA_TITULO", nullable = false, length = 255)
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	@Enumerated(EnumType.STRING)
@@ -70,13 +83,23 @@ public class Noticia {
 		this.tipoNoticia = tipoNoticia;
 	}
 
-	@Column(name = "NOTICIA_URL", nullable = false, length = 255)
+	@Column(name = "NOTICIA_URL", nullable = false, length = 500)
 	public String getUrl() {
 		return url;
 	}
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	@Basic(optional = true)
+	@Column(name = "NOTICIA_IMAGEM", nullable = true, length = 500)
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
 
 }

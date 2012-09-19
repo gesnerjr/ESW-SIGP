@@ -38,14 +38,15 @@ public class NoticiaTest {
 
 	@Test
 	public void deveriaDevolverOTipoDaNoticia() {
-		assertEquals(TipoNoticia.PADRAO, noticia.getTipoNoticia());
+		assertEquals(TipoNoticia.DESTAQUE, noticia.getTipoNoticia());
 	}
 
 	private void criarNoticia() {
 		noticia = new Noticia();
 
 		noticia.setNoticia("Notícia TESTE");
-		noticia.setTipoNoticia(TipoNoticia.PADRAO);
+		noticia.setTipoNoticia(TipoNoticia.DESTAQUE);
+		noticia.setTitulo("Teste");
 		noticia.setUrl("URL da notícia");
 		// noticia.setImagem();//Não utilizando por enquanto //TODO implementar
 		// parte de imagens na notícia

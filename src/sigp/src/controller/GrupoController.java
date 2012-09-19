@@ -36,7 +36,7 @@ public class GrupoController implements IHeaderController {
     }
     
 	public String getHeader() {
-		return this.HEADER;
+		return GrupoController.HEADER;
 	}
 
     @Path("/grupo/")

@@ -45,7 +45,8 @@ public class NoticiaControllerTest {
 		{
 			Noticia n = new Noticia();
 			n.setNoticia("Noticia");
-			n.setTipoNoticia(TipoNoticia.PADRAO);
+			n.setTipoNoticia(TipoNoticia.NORMAL);
+			n.setTitulo("Teste");
 			n.setUrl("URL da noticia");
 			list.add(n);
 		}
