@@ -1,5 +1,7 @@
 package sigp.src.component;
 
+import java.io.ByteArrayInputStream;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -37,7 +40,8 @@ public class Noticia {
 	private String url;
 
 	// @NotEmpty(message = "Notícia precisa ter uma imagem.")
-	private String imagem;
+	@Lob
+	private byte[] imagem;
 
 	// Imagem será o caminho de referencia para a mesma...
 
@@ -83,6 +87,10 @@ public class Noticia {
 		this.tipoNoticia = tipoNoticia;
 	}
 
+	public void setTipoNoticia(String tipoNoticia) {
+		this.tipoNoticia = TipoNoticia.valueOf(tipoNoticia);
+	}
+
 	@Column(name = "NOTICIA_URL", nullable = false, length = 500)
 	public String getUrl() {
 		return url;
@@ -93,13 +101,13 @@ public class Noticia {
 	}
 
 	@Basic(optional = true)
-	@Column(name = "NOTICIA_IMAGEM", nullable = true, length = 500)
-	public String getImagem() {
+	@Column(name = "NOTICIA_IMAGEM", nullable = true, length = 100000)
+	public byte[] getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
+	public void setImagem(Object imagem) {
+		this.imagem = (byte[])imagem;
 	}
 
 }

@@ -19,6 +19,10 @@
 	   <jsp:include page="/WEB-INF/jsp/publicacao/admin-box.jsp" />
 	</c:when>
 	
+	<c:when test="${headername == 'noticia'}">
+	   <jsp:include page="/WEB-INF/jsp/noticia/admin-box.jsp" />
+	</c:when>
+	
 	<c:when test="${headername == 'software'}">
         <jsp:include page="/WEB-INF/jsp/software/admin-box.jsp" />
     </c:when>

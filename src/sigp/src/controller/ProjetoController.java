@@ -10,6 +10,7 @@ import sigp.src.component.LinhaPesquisa;
 import sigp.src.component.Projeto;
 import sigp.src.dao.LinhaDePesquisaDao;
 import sigp.src.dao.MembroDao;
+import sigp.src.dao.NoticiaDao;
 import sigp.src.dao.ProjetoDao;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
@@ -26,12 +27,17 @@ public class ProjetoController implements IHeaderController {
 	private LinhaDePesquisaDao ldao;
 
 	public ProjetoController(Result result, Validator validator,
-			ProjetoDao dao, MembroDao cdao, LinhaDePesquisaDao ldao) {
+			ProjetoDao dao, MembroDao cdao, LinhaDePesquisaDao ldao,
+			NoticiaDao ndao) {
 		this.result = result;
 		this.validator = validator;
 		this.dao = dao;
 		this.cdao = cdao;
 		this.ldao = ldao;
+
+		// Noticias que serao mostradas em Latest News....
+		if (this.result != null)
+			this.result.include("ultimasNoticias", ndao.listNoticias());
 	}
 
 	public String getHeader() {

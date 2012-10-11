@@ -10,6 +10,7 @@ import sigp.src.component.LinhaPesquisa;
 import sigp.src.component.Projeto;
 import sigp.src.component.Publicacao;
 import sigp.src.dao.LinhaDePesquisaDao;
+import sigp.src.dao.NoticiaDao;
 import sigp.src.dao.ProjetoDao;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
@@ -24,25 +25,32 @@ public class LinhaDePesquisaController implements IHeaderController {
 	private final ProjetoDao pdao;
 	private Validator validator;
 
-	public LinhaDePesquisaController(Result result, Validator validator, LinhaDePesquisaDao dao, ProjetoDao pdao) {
+	public LinhaDePesquisaController(Result result, Validator validator,
+			LinhaDePesquisaDao dao, ProjetoDao pdao, NoticiaDao ndao) {
 		this.result = result;
 		this.validator = validator;
 		this.dao = dao;
 		this.pdao = pdao;
+
+		// Noticias que serao mostradas em Latest News....
+		if (this.result != null)
+			this.result.include("ultimasNoticias", ndao.listNoticias());
 	}
-	
-	public String getHeader(){
+
+	public String getHeader() {
 		return LinhaDePesquisaController.HEADER;
 	}
 
-	@Path({"/lines/", "/lines"})
-	public void index_estatico(){}
-	
-	@Path({"/plines/", "/plines"})
-	public void previous_lines(){}
+	@Path({ "/lines/", "/lines" })
+	public void index_estatico() {
+	}
+
+	@Path({ "/plines/", "/plines" })
+	public void previous_lines() {
+	}
 
 	public void index() {
-		result.include("linhasdepesquisa", dao.list());        
+		result.include("linhasdepesquisa", dao.list());
 	}
 
 	public List<LinhaPesquisa> lista() {
@@ -50,18 +58,18 @@ public class LinhaDePesquisaController implements IHeaderController {
 	}
 
 	@Restricted
-	@Path({"/lines/add", "/lines/add/*"})
+	@Path({ "/lines/add", "/lines/add/*" })
 	public void add() {
 		result.include("todaslinhas", dao.list());
 	}
 
 	@Restricted
-	@Path("/lines/create")   
-	public void inserir(final LinhaPesquisa linhapesquisa, final List<Long> idsProjetos, 
-			final List<Long> idsLinhasPai){
+	@Path("/lines/create")
+	public void inserir(final LinhaPesquisa linhapesquisa,
+			final List<Long> idsProjetos, final List<Long> idsLinhasPai) {
 		if (idsProjetos != null) {
 			List<Projeto> projetos = new ArrayList<Projeto>();
-			for (Long id : idsProjetos){
+			for (Long id : idsProjetos) {
 				Projeto p = pdao.getProjeto(id);
 				projetos.add(p);
 			}
@@ -91,19 +99,19 @@ public class LinhaDePesquisaController implements IHeaderController {
 		else
 			result.include("linhapesquisa", linhapesquisa);
 		result.include("llinhaspai", linhapesquisa.getLinhasPai());
-		result.include("todaslinhas", dao.list());  
+		result.include("todaslinhas", dao.list());
 	}
 
 	@Restricted
 	@Path("/lines/update")
-	public void altera(final LinhaPesquisa linhapesquisa, final List<Long> idsLinhasPai,
-			final List<Long> idsProjetos) {
+	public void altera(final LinhaPesquisa linhapesquisa,
+			final List<Long> idsLinhasPai, final List<Long> idsProjetos) {
 		validator.validate(linhapesquisa);
 		validator.onErrorForwardTo(this).editar(linhapesquisa.getIdPesquisa());
-		
+
 		List<Projeto> projetos = new ArrayList<Projeto>();
 		if (idsProjetos != null) {
-			for (Long id : idsProjetos){
+			for (Long id : idsProjetos) {
 				Projeto p = pdao.getProjeto(id);
 				projetos.add(p);
 			}
@@ -117,7 +125,6 @@ public class LinhaDePesquisaController implements IHeaderController {
 			}
 		}
 		linhapesquisa.setLinhasPai(linhasPai);
-
 
 		dao.update(linhapesquisa);
 		result.redirectTo(this).index();
@@ -140,8 +147,8 @@ public class LinhaDePesquisaController implements IHeaderController {
 		} else {
 			result.include("linhapesquisa", linhapesquisa);
 			Map<Integer, List<Publicacao>> pubmap = new HashMap<Integer, List<Publicacao>>();
-			for (Publicacao p: linhapesquisa.getPublicacoes()){
-				if (!pubmap.containsKey(p.getAno())){
+			for (Publicacao p : linhapesquisa.getPublicacoes()) {
+				if (!pubmap.containsKey(p.getAno())) {
 					pubmap.put(p.getAno(), new ArrayList<Publicacao>());
 				}
 				pubmap.get(p.getAno()).add(p);

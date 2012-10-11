@@ -79,13 +79,13 @@ public class NoticiaControllerTest {
 	public void testCria() {
 		{
 			Noticia n = list.get(0);
-			controller.cria(n);
+			controller.cria(n,null);
 			verify(dao).save(n);
 		}
 		{
 			Noticia n = new Noticia();
 			n.setNoticia("Teste Noticia");
-			controller.cria(n);
+			controller.cria(n,null);
 			verify(dao).save(n);
 			// assertSame(n.getNoticia(), list.get(0));
 		}
@@ -102,13 +102,13 @@ public class NoticiaControllerTest {
 	public void testAltera() {
 		{
 			Noticia n = list.get(0);
-			controller.altera(n);
+			controller.altera(n,null,null);
 			verify(dao).update(n);
 		}
 		{
 			Noticia n = new Noticia();
 			n.setNoticia("Teste Noticia");
-			controller.altera(n);
+			controller.altera(n,null,null);
 			verify(dao).update(n);
 			// assertSame(n.getNoticia(),list.get(0));
 		}

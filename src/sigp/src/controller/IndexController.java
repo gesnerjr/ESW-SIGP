@@ -16,6 +16,7 @@
  */
 package sigp.src.controller;
 
+import sigp.src.dao.NoticiaDao;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -24,9 +25,13 @@ import br.com.caelum.vraptor.Result;
 public class IndexController implements IHeaderController {
 	private static final String HEADER = "index";
 	private final Result result;
-	
-	public IndexController(Result result) {
+
+	public IndexController(Result result, NoticiaDao ndao) {
 		this.result = result;
+
+		// Noticias que serao mostradas em Latest News....
+		if (this.result != null)
+			this.result.include("ultimasNoticias", ndao.listNoticias());
 	}
 
 	@Path("/")

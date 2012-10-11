@@ -17,6 +17,7 @@ import sigp.src.component.Grupo;
 import sigp.src.controller.DisciplinaController;
 import sigp.src.dao.DisciplinaDao;
 import sigp.src.dao.GrupoDao;
+import sigp.src.dao.NoticiaDao;
 
 public class DisciplinaControllerTest {
 	DisciplinaController controller;
@@ -26,23 +27,26 @@ public class DisciplinaControllerTest {
 	GrupoDao grupoDao;
 	List<Disciplina> disciplina_list;
 	List<Grupo> grupo_list;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		result = mock(Result.class);
 		dao = mock(DisciplinaDao.class);
 		grupoDao = mock(GrupoDao.class);
 		validator = mock(Validator.class);
-		controller = new DisciplinaController(result, validator, dao, grupoDao);
-		
+		NoticiaDao ndao = mock(NoticiaDao.class);
+		controller = new DisciplinaController(result, validator, dao, grupoDao,
+				ndao);
+
 		DisciplinaController controlmock = mock(DisciplinaController.class);
-		when(result.redirectTo(DisciplinaController.class)).thenReturn(controlmock);
+		when(result.redirectTo(DisciplinaController.class)).thenReturn(
+				controlmock);
 		when(validator.onErrorForwardTo(controller)).thenReturn(controlmock);
-		
+
 		setUpDisciplinaDao();
 		setUpGrupoDao();
 	}
-	
+
 	private void setUpDisciplinaDao() {
 		disciplina_list = new ArrayList<Disciplina>();
 		{
@@ -64,8 +68,9 @@ public class DisciplinaControllerTest {
 		when(dao.list()).thenReturn(disciplina_list);
 		when(dao.getDisciplina(1L)).thenReturn(disciplina_list.get(0));
 		when(dao.getDisciplina(2L)).thenReturn(disciplina_list.get(1));
-		
+
 	}
+
 	private void setUpGrupoDao() {
 		grupo_list = new ArrayList<Grupo>();
 		{

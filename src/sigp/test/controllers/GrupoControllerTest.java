@@ -18,6 +18,7 @@ import sigp.src.controller.GrupoController;
 import sigp.src.dao.MembroDao;
 import sigp.src.dao.GrupoDao;
 import sigp.src.dao.LinhaDePesquisaDao;
+import sigp.src.dao.NoticiaDao;
 
 public class GrupoControllerTest {
 	GrupoController controller;
@@ -27,7 +28,7 @@ public class GrupoControllerTest {
 	LinhaDePesquisaDao ldao;
 	List<Grupo> list;
 	private MembroDao cdao;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		result = mock(Result.class);
@@ -35,15 +36,17 @@ public class GrupoControllerTest {
 		validator = mock(Validator.class);
 		ldao = mock(LinhaDePesquisaDao.class);
 		cdao = mock(MembroDao.class);
-		controller = new GrupoController(result, validator, dao, ldao, cdao);
-		
+		NoticiaDao ndao = mock(NoticiaDao.class);
+		controller = new GrupoController(result, validator, dao, ldao, cdao,
+				ndao);
+
 		GrupoController controlmock = mock(GrupoController.class);
 		when(result.redirectTo(GrupoController.class)).thenReturn(controlmock);
 		when(validator.onErrorForwardTo(controller)).thenReturn(controlmock);
-		
+
 		setUpDao();
 	}
-	
+
 	public void setUpDao() {
 		list = new ArrayList<Grupo>();
 		{
@@ -57,11 +60,11 @@ public class GrupoControllerTest {
 			Grupo d = new Grupo();
 			d.setIdGrupo(2L);
 			d.setNome("Sistemas Operacionais");
-			//d.setResponsavel(list.get(0));
+			// d.setResponsavel(list.get(0));
 			list.add(d);
 		}
 		when(dao.list()).thenReturn(list);
-        when(dao.find("Grupo Principal")).thenReturn(list.get(0));
+		when(dao.find("Grupo Principal")).thenReturn(list.get(0));
 		when(dao.getGrupo(1L)).thenReturn(list.get(0));
 		when(dao.getGrupo(2L)).thenReturn(list.get(1));
 	}

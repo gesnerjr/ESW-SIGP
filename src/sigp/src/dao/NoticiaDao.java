@@ -44,6 +44,15 @@ public class NoticiaDao {
 		return this.session.createCriteria(Noticia.class).list();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Noticia> listNoticias() {
+		List<Noticia> ln = this.session.createCriteria(Noticia.class).list();
+		if (ln != null && ln.size() < 5)
+			return ln;
+		else
+			return ln.subList(0, 5);
+	}
+
 	public void delete(Noticia noticia) {
 		Transaction t = session.beginTransaction();
 		session.delete(noticia);

@@ -4,6 +4,7 @@ import sigp.src.annotations.Restricted;
 import sigp.src.business.LoginBusiness;
 import sigp.src.component.Usuario;
 import sigp.src.component.UsuarioSessao;
+import sigp.src.dao.NoticiaDao;
 import sigp.src.dao.UsuarioDao;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -19,27 +20,30 @@ public class UsuarioController implements IHeaderController {
 	private final UsuarioDao dao;
 	private final Validator validator;
 
-
 	private UsuarioSessao usuarioSessao;
 	private LoginBusiness business;
 
-	public UsuarioController(Result result, Validator validator, UsuarioDao dao,
-			LoginBusiness business, UsuarioSessao usuarioSessao) {
+	public UsuarioController(Result result, Validator validator,
+			UsuarioDao dao, LoginBusiness business, UsuarioSessao usuarioSessao, NoticiaDao ndao) {
 		this.result = result;
 		this.validator = validator;
 		this.business = business;
 		this.usuarioSessao = usuarioSessao;
 		this.dao = dao;
+
+		// Noticias que serao mostradas em Latest News....
+		if (this.result != null)
+			this.result.include("ultimasNoticias", ndao.listNoticias());
 	}
-	
-	public String getHeader(){
+
+	public String getHeader() {
 		return UsuarioController.HEADER;
 	}
 
 	@Path("/login/")
 	public void index() {
 	}
-	
+
 	@Restricted
 	@Path("/login/sair")
 	public void sair() {
@@ -47,7 +51,7 @@ public class UsuarioController implements IHeaderController {
 		result.redirectTo(UsuarioController.class).index();
 	}
 
-	//@Restricted
+	// @Restricted
 	@Path("/login/cadastro")
 	public void form() {
 	}
@@ -61,16 +65,17 @@ public class UsuarioController implements IHeaderController {
 			usuarioSessao.setUser(user);
 			result.redirectTo(UsuarioController.class).index();
 		} else {
-			result.include("error", "E-mail ou senha incorreta!").redirectTo(this).index();
+			result.include("error", "E-mail ou senha incorreta!")
+					.redirectTo(this).index();
 		}
 	}
 
-	//@Restricted
+	// @Restricted
 	@Path("/login/add")
 	public void novo_form() {
 	}
 
-	//@Restricted
+	// @Restricted
 	@Path("/login/salva")
 	public void salva(Usuario usuario, String confirma) {
 

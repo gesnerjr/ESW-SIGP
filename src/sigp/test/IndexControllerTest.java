@@ -9,6 +9,7 @@ import org.junit.Test;
 import br.com.caelum.vraptor.Result;
 
 import sigp.src.controller.IndexController;
+import sigp.src.dao.NoticiaDao;
 
 
 public class IndexControllerTest {
@@ -18,7 +19,8 @@ public class IndexControllerTest {
 	@Before
 	public void setUp() throws Exception {
 		result = mock(Result.class);
-		controller = new IndexController(result);
+		NoticiaDao ndao = mock(NoticiaDao.class);
+		controller = new IndexController(result,ndao);
 	}
 
 	@After

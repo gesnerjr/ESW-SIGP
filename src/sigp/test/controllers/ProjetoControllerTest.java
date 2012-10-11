@@ -18,6 +18,7 @@ import sigp.src.component.Publicacao;
 import sigp.src.controller.ProjetoController;
 import sigp.src.dao.LinhaDePesquisaDao;
 import sigp.src.dao.MembroDao;
+import sigp.src.dao.NoticiaDao;
 import sigp.src.dao.ProjetoDao;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
@@ -36,8 +37,9 @@ public class ProjetoControllerTest {
 		dao = mock(ProjetoDao.class);
 
 		validator = mock(Validator.class);
+		NoticiaDao ndao = mock(NoticiaDao.class);
 		controller = new ProjetoController(result, validator, dao,
-				mock(MembroDao.class), mock(LinhaDePesquisaDao.class));
+				mock(MembroDao.class), mock(LinhaDePesquisaDao.class), ndao);
 
 		ProjetoController controlmock = mock(ProjetoController.class);
 		when(result.redirectTo(ProjetoController.class))

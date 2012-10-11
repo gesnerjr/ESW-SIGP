@@ -1,61 +1,51 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="pagetitle" value="${noticia.titulo}" />
 <%@ include file="/header.jsp"%>
 
-<div id="side-contents" class="hidden"></div>
+<!----------- TITLE ---------->
+<div id="page-headline">
 
-<div id="contents">
-	<h2 class="top">${noticia.titulo}</h2>
-
-
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
-		pageEncoding="UTF-8"%>
-
-	<p>
-		<b>Notícia:</b>
-		<c:choose>
-			<c:when test="${noticia.titulo != null}">${noticia.titulo}</c:when>
-			<c:otherwise> - </c:otherwise>
-		</c:choose>
-	</p>
-	<p>
-		<b>Notícia:</b>
-		<c:choose>
-			<c:when test="${noticia.noticia != null}">${noticia.noticia}</c:when>
-			<c:otherwise> - </c:otherwise>
-		</c:choose>
-	</p>
-	<p>
-		<b>Tipo da Notícia:</b>
-		<c:choose>
-			<c:when test="${noticia.tipoNoticia != null}">${noticia.tipoNoticia}</c:when>
-			<c:otherwise> - </c:otherwise>
-		</c:choose>
-	</p>
-
-	<p>
-		<b>URL da Notícia:</b>
-		<c:choose>
-			<c:when test="${noticia.url != null}">${noticia.url}</c:when>
-			<c:otherwise> - </c:otherwise>
-		</c:choose>
-	</p>
-
-	<!-- Imagem -->
-
-	<p>
-		<a href="/SIGP/noticia/alterar/${noticia.idNoticia}">Alterar</a> <a
-			href="/SIGP/noticia/apagar/${noticia.idNoticia}">Apagar</a>
-	</p>
-
-	<hr />
-	<p>
-		<a href="/SIGP/noticia/"><fmt:message key="noticia.voltar" /></a>
-	</p>
-
-
+	<div id="page-headline-inner">
+		<div id="page-title">
+			<h2>"${noticia.titulo}"</h2>
+		</div>
+		<!-- end page-title -->
+	</div>
+	<!-- end page-headline-inner -->
+	<div class="separator"></div>
 </div>
-<!-- id=contents -->
+<!-- end page-headline -->
 
+<!----------- CORPO ---------->
+<div id="wrapper">
 
+	<div id="content" class="cont-left">
 
+		<p>
+			<b><fmt:message key="noticia.titulo" /></b> <br />
+			${noticia.titulo}
+		</p>
+		<p>
+			<b><fmt:message key="noticia.noticia" /></b> <br />
+			${noticia.noticia}
+		</p>
 
-<%@ include file="/footer.jsp"%>
+		<p>
+			<b><fmt:message key="noticia.tipoNoticia" /></b> <br />
+			${noticia.tipoNoticia.tipoNoticia}
+		</p>
+		<p>
+			<b><fmt:message key="noticia.url" /></b> <br /> ${noticia.url}
+		</p>
+
+		<p>
+			<label><fmt:message key="noticia.imagem" /></label><br /> 
+				<c:if test="${noticia.imagem != null}">
+					<img src="/SIGP/noticia/${noticia.idNoticia}/img" width="570" />
+				</c:if>
+			</p>
+
+	</div>
+	<!-- id=contents -->
+
+	<%@ include file="/footer.jsp"%>

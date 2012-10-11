@@ -149,6 +149,13 @@
                     Contact
                     </a>
                 </li>
+                <!-- adicionando noticia -->
+                <li>
+                    <a href="<c:url value='/noticia/'></c:url>" <c:if test="${headername == 'noticia'}">class="active-nav"</c:if>>
+                    <fmt:message key="header.noticias" />
+                    </a>
+                </li>
+                
             </ul><!-- end navigation -->
 
             <div class="clear"></div><!-- end clearfix -->

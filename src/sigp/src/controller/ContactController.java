@@ -16,6 +16,7 @@
  */
 package sigp.src.controller;
 
+import sigp.src.dao.NoticiaDao;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -24,12 +25,16 @@ import br.com.caelum.vraptor.Result;
 public class ContactController implements IHeaderController {
 	private static final String HEADER = "contact";
 	private final Result result;
-	
-	public ContactController(Result result) {
+
+	public ContactController(Result result, NoticiaDao ndao) {
 		this.result = result;
+
+		// Noticias que serao mostradas em Latest News....
+		if (this.result != null)
+			this.result.include("ultimasNoticias", ndao.listNoticias());
 	}
 
-	@Path({"/contact", "/contact/*"})
+	@Path({ "/contact", "/contact/*" })
 	public void index() {
 	}
 

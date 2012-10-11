@@ -18,98 +18,101 @@ import sigp.src.component.Contribuinte;
 import sigp.src.component.TipoUsuario;
 import sigp.src.component.Usuario;
 import sigp.src.controller.UsuarioController;
+import sigp.src.dao.NoticiaDao;
 import sigp.src.dao.UsuarioDao;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 
 public class UsuarioControllerTest {
 
-    UsuarioController controller;
-    Result result;
-    private Validator validator;
-    private LoginBusiness business;
-    private UsuarioController controlmock;
-    UsuarioDao dao;
+	UsuarioController controller;
+	Result result;
+	private Validator validator;
+	private LoginBusiness business;
+	private UsuarioController controlmock;
+	UsuarioDao dao;
 
-    File avatar;
-    TipoUsuario tipoUsuario;
-    String senha;
-    String login;
-    Contribuinte contribuinte;
+	File avatar;
+	TipoUsuario tipoUsuario;
+	String senha;
+	String login;
+	Contribuinte contribuinte;
 
-    List<Usuario> usuarios;
+	List<Usuario> usuarios;
 
-    @Before
-    public void setUp() throws Exception {
-        result = mock(Result.class);
-        dao = mock(UsuarioDao.class);
-        validator = mock(Validator.class);
-        business = mock(LoginBusiness.class);
-        controller = new UsuarioController(result, validator, dao, business, null);
+	@Before
+	public void setUp() throws Exception {
+		result = mock(Result.class);
+		dao = mock(UsuarioDao.class);
+		validator = mock(Validator.class);
+		business = mock(LoginBusiness.class);
+		NoticiaDao ndao = mock(NoticiaDao.class);
+		controller = new UsuarioController(result, validator, dao, business,
+				null, ndao);
 
-        controlmock = mock(UsuarioController.class);
-        when(result.redirectTo(UsuarioController.class))
-                .thenReturn(controlmock);
-        when(validator.onErrorForwardTo(controller)).thenReturn(controlmock);
-        setUpDao();
-    }
+		controlmock = mock(UsuarioController.class);
+		when(result.redirectTo(UsuarioController.class))
+				.thenReturn(controlmock);
+		when(validator.onErrorForwardTo(controller)).thenReturn(controlmock);
+		setUpDao();
+	}
 
-    private void setUpDao() {
-        usuarios = new ArrayList<Usuario>();
-        {
-            Usuario usuario = new Usuario();
-            Contribuinte contribuinte = mock(Contribuinte.class);
-            usuario.setContribuinte(contribuinte);
+	private void setUpDao() {
+		usuarios = new ArrayList<Usuario>();
+		{
+			Usuario usuario = new Usuario();
+			Contribuinte contribuinte = mock(Contribuinte.class);
+			usuario.setContribuinte(contribuinte);
 
-            usuario.setLogin("mgerosa");
-            usuario.setSenha("engsoft");
+			usuario.setLogin("mgerosa");
+			usuario.setSenha("engsoft");
 
-            usuarios.add(usuario);
-        }
+			usuarios.add(usuario);
+		}
 
-        {
-            Usuario usuario = new Usuario();
-            Contribuinte contribuinte = mock(Contribuinte.class);
-            usuario.setContribuinte(contribuinte);
+		{
+			Usuario usuario = new Usuario();
+			Contribuinte contribuinte = mock(Contribuinte.class);
+			usuario.setContribuinte(contribuinte);
 
-            usuario.setLogin("jleandro");
-            usuario.setSenha("vision");
+			usuario.setLogin("jleandro");
+			usuario.setSenha("vision");
 
-            usuarios.add(usuario);
-        }
+			usuarios.add(usuario);
+		}
 
-        when(dao.list()).thenReturn(usuarios);
-        when(dao.pegaUsuarioPorLogin("mgerosa")).thenReturn(usuarios.get(0));
-        when(dao.pegaUsuarioPorLogin("jleandro")).thenReturn(usuarios.get(1));
-    }
+		when(dao.list()).thenReturn(usuarios);
+		when(dao.pegaUsuarioPorLogin("mgerosa")).thenReturn(usuarios.get(0));
+		when(dao.pegaUsuarioPorLogin("jleandro")).thenReturn(usuarios.get(1));
+	}
 
-    @After
-    public void tearDown() throws Exception {
-        controller = null;
-        result = null;
-        dao = null;
-        usuarios = null;
-    }
+	@After
+	public void tearDown() throws Exception {
+		controller = null;
+		result = null;
+		dao = null;
+		usuarios = null;
+	}
 
-    @Test
-    public void testVerifica() {
-        controller.verifica("ninguem", "nada");
-        verify(controlmock).index();
-    }
+	@Test
+	public void testVerifica() {
+		controller.verifica("ninguem", "nada");
+		verify(controlmock).index();
+	}
 
-    @Test
-    public void testSalva() {
-        // Testar tentativa de persistencia de usuario ja existente
-        Usuario u = usuarios.get(0);
-        controller.salva(u, "engsoft");
-        verify(result).include("usuarioJaExistente", "Login nao disponivel.");
+	@Test
+	public void testSalva() {
+		// Testar tentativa de persistencia de usuario ja existente
+		Usuario u = usuarios.get(0);
+		controller.salva(u, "engsoft");
+		verify(result).include("usuarioJaExistente", "Login nao disponivel.");
 
-        // Testar insercao persistencia de novo usuario
-        Usuario unovo = new Usuario();
-        unovo.setLogin("newnuser");
-        unovo.setSenha("newpssd");
-        controller.salva(unovo, "newpssd");
-        verify(dao).save(unovo);
-    }
+		// Testar insercao persistencia de novo usuario
+		Usuario unovo = new Usuario();
+		unovo.setLogin("newnuser");
+		unovo.setSenha("newpssd");
+		controller.salva(unovo, "newpssd");
+		verify(dao).save(unovo);
+	}
 
 }

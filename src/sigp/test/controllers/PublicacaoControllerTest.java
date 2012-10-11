@@ -20,6 +20,7 @@ import sigp.src.component.TipoVeiculo;
 import sigp.src.controller.PublicacaoController;
 import sigp.src.dao.LinhaDePesquisaDao;
 import sigp.src.dao.MembroDao;
+import sigp.src.dao.NoticiaDao;
 import sigp.src.dao.ProjetoDao;
 import sigp.src.dao.PublicacaoDao;
 import sigp.src.dao.SoftwareDao;
@@ -44,9 +45,10 @@ public class PublicacaoControllerTest {
 		validator = mock(Validator.class);
 		pdao = mock(ProjetoDao.class);
 		cdao = mock(MembroDao.class);
+		NoticiaDao ndao = mock(NoticiaDao.class);
 		controller = new PublicacaoController(result, validator, dao, pdao,
 				cdao, mock(SoftwareDao.class), mock(PublicacaoBusiness.class),
-				mock(LinhaDePesquisaDao.class));
+				mock(LinhaDePesquisaDao.class), ndao);
 
 		PublicacaoController controlmock = mock(PublicacaoController.class);
 		when(result.redirectTo(PublicacaoController.class)).thenReturn(
